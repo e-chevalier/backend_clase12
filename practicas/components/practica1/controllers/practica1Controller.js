@@ -31,7 +31,6 @@ class Practica1 {
         }
     }
 
-
 }
 
 export let practica1Controller = new Practica1()

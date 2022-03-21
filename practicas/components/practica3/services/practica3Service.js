@@ -1,7 +1,7 @@
 
-class Practica2 {
+class Practica3 {
 
-    async getPractica2(req) {
+    async getPractica3(req) {
 
         try {
             const { name } = req.query
@@ -71,4 +71,4 @@ class Practica2 {
 
 }
 
-export let practica2Service = new Practica2()
+export let practica3Service = new Practica3()

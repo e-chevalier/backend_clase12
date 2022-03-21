@@ -2,7 +2,11 @@ import express from 'express'
 import config from './config/index.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import session from 'express-session'
 import { serverRoutes } from './routes/index.js'
+import sessionFileStore from 'session-file-store'
+
+
 
 const PORT = config.port
 
@@ -12,6 +16,16 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static('static'))
 app.use(cookieParser())
 app.use(cors("*"))
+
+let FileStore = sessionFileStore(session)
+
+app.use(session({
+    store: new FileStore({path: '../sesiones', ttl:300, retries: 0}),
+    secret: 'secreto',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {maxAge: 10000}
+}))
 
 serverRoutes(app)
 

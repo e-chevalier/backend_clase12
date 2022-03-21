@@ -1,9 +1,9 @@
-import { practica2Service } from '../services/practica2Service.js'
+import { practica3Service } from '../services/practica3Service.js'
 
-class Practica2 {
-    async getPractica2(req, res, next) {
+class Practica3 {
+    async getPractica3(req, res, next) {
         try {
-            let response = await practica2Service.getPractica2(req)
+            let response = await practica3Service.getPractica3(req)
             res.send(`<H1> ${ response.message } </H1>`)
 
         } catch (error) {
@@ -15,7 +15,7 @@ class Practica2 {
     async olvidar(req, res, next) {
         try {
 
-            let response = await practica2Service.olvidar(req, res)
+            let response = await practica3Service.olvidar(req, res)
             console.log(req.session)
             res.send(`<H1> ${ response.message } </H1>`)
 
@@ -27,7 +27,7 @@ class Practica2 {
 
     async login(req, res, next) {
         try {
-            let response = await practica2Service.login(req)
+            let response = await practica3Service.login(req)
             res.send(`<H1> ${ response.message } </H1>`)
 
         } catch (error) {
@@ -38,4 +38,4 @@ class Practica2 {
 
 }
 
-export let practica2Controller = new Practica2()
+export let practica3Controller = new Practica3()
