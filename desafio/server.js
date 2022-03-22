@@ -3,10 +3,15 @@ import cors from 'cors'
 import { Server as HttpServer } from 'http'
 import { Server as IOServer } from 'socket.io'
 import { config } from './config/index.js'
+import { config as configAtlas } from './config/mongodbAtlas.js'
 import { engine } from 'express-handlebars';
 import { serverRoutes } from './routes/index.js'
-import { denormalize, normalize, schema } from "normalizr"
+import { normalize, schema } from "normalizr"
 import util from 'util'
+import cookieParser from 'cookie-parser'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+
 
 import { productsMemory, productsContainer, messagesMemory, messagesContainer } from './daos/index.js'
 
@@ -28,12 +33,36 @@ const PORT = config.port
 
 // Middlewares
 app.use(cors("*"));
-
+app.use(cookieParser())
 // Settings
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.use(express.static('node_modules/bootstrap/dist'))
+
+
+
+// CONFIG SESION MONGO STORE
+const advanceOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+
+const DB_PASS = configAtlas.db_pass
+const DB_DOMAIN = configAtlas.db_domain
+const DB_NAME = configAtlas.db_name
+const DB_USER = configAtlas.db_user
+
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_DOMAIN}/${DB_NAME}?retryWrites=true&w=majority`,
+        mongoOptions: advanceOptions
+    }),
+    secret: 'secreto',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {maxAge: 10000}
+}))
+
+
+
 
 // defino el motor de plantilla
 app.engine('.hbs', engine({
