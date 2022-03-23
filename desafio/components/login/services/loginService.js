@@ -1,6 +1,6 @@
 class Login {
 
-    async getLogin() {
+    async getLogin(req) {
 
         try {
             return { status: "OK" }
@@ -13,9 +13,26 @@ class Login {
     async postLogin(req) {
 
         try {
-            const {name} = req.body
+            const { name } = req.body
+            let response = {}
 
-            return { status: "OK", name: name }
+            if (name) {
+
+                if (req.session) {
+                    req.session.counter++
+                } else {
+                    req.session.counter = 1
+                    req.session.username = name
+                }
+
+                response = { status: "OK" }
+
+            } else {
+                response = { status: "BAD" }
+            }
+
+            return response
+
         } catch (error) {
             console.log(error);
         }

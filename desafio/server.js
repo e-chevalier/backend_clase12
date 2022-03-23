@@ -58,7 +58,7 @@ app.use(session({
     secret: 'secreto',
     resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 10000}
+    cookie: {maxAge: 40000}
 }))
 
 
