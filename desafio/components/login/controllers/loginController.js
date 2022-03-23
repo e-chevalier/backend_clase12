@@ -6,6 +6,7 @@ class Login {
         try {
             let response = await loginService.getLogin(req)
             res.render('login')
+            
         } catch (error) {
             console.log(error);
         }
