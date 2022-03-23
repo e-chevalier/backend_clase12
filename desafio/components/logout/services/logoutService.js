@@ -10,11 +10,11 @@ class Logout {
                 req.session.destroy(error => {
                     if (!error) {
                         //res.json({ status: "Logout OK" })
-                        console.log(`{ status: "Logout OK" }`)
+                        console.log(`{ status: "Logout OK - ${username}" }`)
 
                     } else {
                         //res.json({ status: "Logout Error", body: error })
-                        console.log(`{ status: "Logout Error", body: error }`)
+                        console.log(`{ status: "Logout Error - ${username}", body: error }`)
                     }
                 })
             }

@@ -1,10 +1,10 @@
 const auth = (req, res, next) => {
 
-    if( req.session?.user === "pepe" && req.session?.admin) {
+    if( req.session.username ) {
         return next()
+    } else {
+        return res.status(401).redirect('/api/login')
     }
-
-    return res.status(401).send('Error de autorización.')
 
 }
 

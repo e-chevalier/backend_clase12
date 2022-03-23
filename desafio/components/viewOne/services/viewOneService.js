@@ -1,7 +1,11 @@
 class ViewOne {
 
     async getViewOne() {
-        return { status: "OK" }
+        try {
+            return { status: "OK" }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 }

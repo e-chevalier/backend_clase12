@@ -16,17 +16,17 @@ class Login {
             const { name } = req.body
             let response = {}
 
-            if(name) {
+            if (name) {
 
                 if (req.session.counter) {
                     req.session.counter++
-                   
+
                 } else {
                     req.session.counter = 1
                     req.session.username = name
-                  
+
                 }
-            
+
                 response = { status: "OK" }
 
             } else {

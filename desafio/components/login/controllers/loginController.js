@@ -4,7 +4,7 @@ class Login {
 
     async getLogin(req, res, next) {
         try {
-            let response = await loginService.getLogin(req)
+            await loginService.getLogin(req)
             res.render('login')
             
         } catch (error) {

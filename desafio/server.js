@@ -56,9 +56,10 @@ app.use(session({
         mongoOptions: advanceOptions
     }),
     secret: 'secreto',
-    resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 40000}
+    resave: true,
+    rolling: true,
+    cookie: { maxAge: 600 * 1000 }
 }))
 
 
@@ -126,7 +127,7 @@ io.on('connection', (socket) => {
         io.sockets.emit('products', await productsMemory.getAll())
 
         let messagesOriginal = await messagesMemory.getAll()
-        let messagesNormalized = normalize( {id: 'messages', messages: messagesOriginal}, messagesSchema)
+        let messagesNormalized = normalize({ id: 'messages', messages: messagesOriginal }, messagesSchema)
 
         io.sockets.emit('messages', messagesNormalized)
         console.log('¡Nuevo cliente conectado!')  // - Pedido 1
@@ -153,7 +154,7 @@ io.on('connection', (socket) => {
                 await messagesContainer.save(data)
 
                 let messagesOriginal = await messagesMemory.getAll()
-                let messagesNormalized = normalize({id: 'messages', messages: messagesOriginal}, messagesSchema)
+                let messagesNormalized = normalize({ id: 'messages', messages: messagesOriginal }, messagesSchema)
                 io.sockets.emit('messages', messagesNormalized)
 
             })()
