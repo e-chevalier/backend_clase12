@@ -10,7 +10,8 @@ export const serverRoutes = ( app ) => {
     logoutApi(app)
 
     app.get("/", (req, res, next) => {
-        res.send("Todo ok")
+        //res.send("Todo ok")
+        res.redirect('/api/login')
     })
     /**
     * Undefined endpoint
